@@ -25,22 +25,25 @@ public class Customers {
     private String email;
     private String phone;
 
+    @Column(name = "user_password")
+    private String password;
+
     @Column(name = "created_at")
     @DateTimeFormat(pattern = "MM/yy")
     private LocalDateTime createdAt;
 
-    public Customers(Long customerId, List<Accounts> accounts, String firstName, String lastName, String email, String phone, LocalDateTime createdAt) {
+    public Customers(Long customerId, List<Accounts> accounts, String firstName, String lastName, String email, String phone, String password, LocalDateTime createdAt) {
         this.customerId = customerId;
         this.accounts = accounts;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.phone = phone;
+        this.password = password;
         this.createdAt = createdAt;
     }
 
     public Customers() {
-
     }
 
     public Long getCustomerId() {
@@ -99,6 +102,14 @@ public class Customers {
         this.createdAt = createdAt;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @Override
     public String toString() {
         return "Customers{" +
@@ -109,6 +120,7 @@ public class Customers {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", createdAt=" + createdAt +
+                ", password='" + password + '\'' +
                 '}';
     }
 }
