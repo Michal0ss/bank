@@ -4,8 +4,11 @@ import com.bankproject.bank.entity.Customers;
 import com.bankproject.bank.repository.CustomersRepository;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.time.LocalDateTime;
 
 @Controller
 public class CustomersController {
@@ -24,5 +27,16 @@ public class CustomersController {
 
         model.addAttribute("customer", customer);
         return "dashboard";
+    }
+
+    @PostMapping("/register")
+    public String register(@ModelAttribute Customers customer, Model model) {
+        if (customersRepository.existsByEmail(customer.getEmail())) {
+            model.addAttribute("error", "Email already exists!");
+            return "register";
+        }
+        customer.setCreatedAt(LocalDateTime.now());
+        customersRepository.save(customer);
+        return "redirect:/login";
     }
 }
