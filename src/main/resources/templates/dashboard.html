@@ -1,20 +1,47 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <meta charset="UTF-8">
     <title>Dashboard</title>
+
+    <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
 
-<h1>Welcome</h1>
+<div class="dashboard">
 
-<p th:text="'Email: ' + ${customer.email}"></p>
+    <!-- HEADER -->
+    <div class="navbar">
+        <h2>Bank App 💳</h2>
+        <span th:text="${customer.email}"></span>
+    </div>
 
-<h2>Your Accounts:</h2>
+    <!-- MAIN -->
+    <div class="content">
 
-<div th:each="account : ${customer.accounts}">
-    <p>Account number: <span th:text="${account.accountNumber}"></span></p>
-    <p>Balance: <span th:text="${account.balance}"></span></p>
-    <hr>
+        <h1>Welcome 👋</h1>
+
+        <!-- ACCOUNTS -->
+        <div class="accounts">
+
+            <div class="account-card" th:each="account : ${customer.accounts}">
+                <h3>Account</h3>
+
+                <p><strong>Number:</strong>
+                    <span th:text="${account.accountNumber}"></span>
+                </p>
+
+                <p><strong>Balance:</strong>
+                    <span th:text="${account.balance}"></span> PLN
+                </p>
+
+                <button>Transfer</button>
+            </div>
+
+        </div>
+
+    </div>
+
 </div>
 
 </body>
