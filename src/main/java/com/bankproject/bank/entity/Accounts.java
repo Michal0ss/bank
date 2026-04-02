@@ -26,11 +26,20 @@ public class Accounts {
     @JoinColumn(name = "branch_id")
     private Branches branch;
 
-
+    @Column(name = "account_number")
     private String accountNumber;
+
+    @Column(name="balance")
     private BigDecimal balance;
+
     private String accountType;
     private LocalDateTime createdAt;
 
+    public String getAccountNumber() {
+        return accountNumber;
+    }
 
+    public BigDecimal getBalance() {
+        return balance;
+    }
 }
