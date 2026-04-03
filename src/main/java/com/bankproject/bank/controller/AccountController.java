@@ -33,7 +33,7 @@ public class AccountController {
     }
 
     @PostMapping("/dashboard")
-    public String dashboard(@RequestParam int accountId, @RequestParam String email,Model model){
+    public String dashboard(@RequestParam int accountId){
         return "redirect:/details/" + accountId;
     }
 
@@ -64,5 +64,15 @@ public class AccountController {
         model.addAttribute("transactions",transactions);
         model.addAttribute("cards",cards);
         return "details";
+    }
+
+    @PostMapping("/modifyCardStatus/{cardId}/{state}")
+    public String freeze(@PathVariable Long cardId, @PathVariable boolean state, @RequestParam Long accountId){
+        if (state)
+            cardsRepository.unFreezeCard(cardId);
+        else
+            cardsRepository.freezeCard(cardId);
+
+        return "redirect:/details/" + accountId;
     }
 }

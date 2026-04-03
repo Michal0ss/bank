@@ -34,14 +34,14 @@ insert into accounts(balance, branch_id, created_at, customer_id, account_number
 values (24999.0, 2, '2013-2-26 11:33:00', 3, 'PL846862463939577875791872', 'saving');
 
 
-insert into cards (account_id, card_number, expiry_date, card_type, cvv)
-values (1, '2534169190652744', '2028-12-12 0:00:00', 'debit', '629');
+insert into cards (account_id, card_number, expiry_date, card_type, cvv, active)
+values (1, '2534169190652744', '2028-12-12 0:00:00', 'debit', '629', true);
 
-insert into cards (account_id, card_number, expiry_date, card_type, cvv)
-values (3, '4926546237967639', '2029-02-12 0:00:00', 'debit','123');
+insert into cards (account_id, card_number, expiry_date, card_type, cvv, active)
+values (3, '4926546237967639', '2029-02-12 0:00:00', 'debit','123', true);
 
-insert into cards (account_id, card_number, expiry_date, card_type, cvv)
-values (5, '5773817871043697', '2030-02-12 0:00:00', 'debit','936');
+insert into cards (account_id, card_number, expiry_date, card_type, cvv, active)
+values (5, '5773817871043697', '2030-02-12 0:00:00', 'debit','936', true);
 
 
 insert into transactions (amount, from_account_id, to_account_id, created_at, transaction_type)

@@ -9,3 +9,19 @@ language sql
 as '
     insert into accounts(balance, branch_id, created_at, customer_id, account_number, account_type) values (_balance , _branch_id, created_at, _customer_id, _account_number, _account_type);
 ';
+
+create or replace procedure freeze_card (_card_id bigint)
+    language sql
+as '
+    update cards
+    set active = false
+    where card_id = _card_id;
+';
+
+create or replace procedure un_freeze_card (_card_id bigint)
+    language sql
+as '
+    update cards
+    set active = true
+    where card_id = _card_id;
+';

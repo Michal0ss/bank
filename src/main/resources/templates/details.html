@@ -74,6 +74,7 @@
                             <th>Type</th>
                             <th>Expiration date</th>
                             <th>CVV</th>
+                            <th>Status</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -82,11 +83,17 @@
                             <td th:text="${c.cardType}"></td>
                             <td th:text="${#dates.format(c.expiryDate, 'MM/yy')}"></td>
                             <td th:text="${c.cvv}"></td>
+                            <td th:text="${c.active ? 'Active' : 'Frozen'}"></td>
+                            <td>
+                                <form th:action="@{/modifyCardStatus/{id}/{state}(id=${c.cardId}, state=${!c.active})}" method="post">
+                                    <input type="hidden" name="accountId" th:value="${account.accountId}">
+                                    <button class="freeze-button" type="submit">Freeze</button>
+                                </form>
+                            </td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
-
             </div>
 
 

@@ -12,7 +12,7 @@ public class Cards {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int cardId;
+    private Long cardId;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
     @JoinColumn(name = "account_id", referencedColumnName = "accountId")
@@ -28,7 +28,17 @@ public class Cards {
 
     private String cardType;
 
-    public Cards(String cardType, String cvv, Date expiryDate, String cardNumber, Accounts accountId, int cardId) {
+    private boolean active;
+
+    public Accounts getAccount() {
+        return account;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public Cards(String cardType, String cvv, Date expiryDate, String cardNumber, Accounts accountId, Long cardId) {
         this.cardType = cardType;
         this.cvv = cvv;
         this.expiryDate = expiryDate;
@@ -39,11 +49,11 @@ public class Cards {
 
     public Cards() {    }
 
-    public int getCardId() {
+    public Long getCardId() {
         return cardId;
     }
 
-    public void setCardId(int cardId) {
+    public void setCardId(Long cardId) {
         this.cardId = cardId;
     }
 
