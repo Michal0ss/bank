@@ -8,10 +8,15 @@
     <body>
         <div class="navbar">
             <h2>Bank App 💳</h2>
-            <span th:text="${email}"></span>
+            <div class="nav-left-container">
+                <p th:text="${email}">aaa</p>
+                <form action="/logout" method="post">
+                    <button class="nav-button" type="submit">Log out</button>
+                </form>
+            </div>
         </div>
 
-        <div class="content">
+        <div class="content" style="background-color: #eaeaea">
             <form>
 
             </form>

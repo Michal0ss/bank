@@ -2,8 +2,10 @@ package com.bankproject.bank.controller;
 
 import com.bankproject.bank.entity.Customers;
 import com.bankproject.bank.repository.CustomersRepository;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -18,7 +20,7 @@ public class CustomersController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password, Model model) {
+    public String login(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
         Customers customer = customersRepository.findByEmail(email);
 
         if (customer == null) {
@@ -31,9 +33,10 @@ public class CustomersController {
             return "login";
         }
 
-        model.addAttribute("customer", customer);
-        return "dashboard";
+        session.setAttribute("userId",customer.getCustomerId());
+        return "redirect:/dashboard";
     }
+
 
     @PostMapping("/register")
     public String register(@ModelAttribute Customers customer, Model model) {
@@ -43,6 +46,12 @@ public class CustomersController {
         }
         customer.setCreatedAt(LocalDateTime.now());
         customersRepository.save(customer);
+        return "redirect:/login";
+    }
+
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
         return "redirect:/login";
     }
 }

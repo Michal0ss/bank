@@ -5,5 +5,5 @@ import com.bankproject.bank.entity.Customers;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface AccountsRepository extends JpaRepository<Accounts, Integer> {
-    Accounts findByAccountId(int id);
+    Accounts findByAccountId(Long id);
 }

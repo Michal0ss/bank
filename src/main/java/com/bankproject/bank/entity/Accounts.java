@@ -13,7 +13,7 @@ public class Accounts {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int accountId;
+    private Long accountId;
 
     @OneToMany(targetEntity = Cards.class, mappedBy = "account", fetch = FetchType.LAZY)
     private List<Cards> cards;
@@ -43,7 +43,7 @@ public class Accounts {
         return balance;
     }
 
-    public int getAccountId() {
+    public Long getAccountId() {
         return accountId;
     }
 

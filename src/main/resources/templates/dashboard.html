@@ -13,7 +13,13 @@
     <!-- HEADER -->
     <div class="navbar">
         <h2>Bank App 💳</h2>
-        <span th:text="${customer.email}"></span>
+        <div class="nav-left-container">
+            <p th:text="${customer.email}">aaa</p>
+            <form action="/logout" method="post">
+                <button class="nav-button" type="submit">Log out</button>
+            </form>
+        </div>
+
     </div>
 
     <!-- MAIN -->

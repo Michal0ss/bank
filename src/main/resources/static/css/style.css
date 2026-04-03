@@ -120,13 +120,31 @@ p {
 
 /* NAVBAR */
 .navbar {
-    background: #273c75;
-    color: white;
+    background: #122d8f;
     padding: 15px 30px;
+    color:white;
     display: flex;
     justify-content: space-between;
 }
 
+.nav-button{
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    background: #5b6ba0;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.nav-button:hover{
+    background: #6474a1;
+}
+
+.nav-left-container>p{
+    color: white;
+}
 /* CONTENT */
 .content {
     padding: 30px;
