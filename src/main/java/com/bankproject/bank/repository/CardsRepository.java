@@ -17,4 +17,10 @@ public interface CardsRepository extends JpaRepository<Cards, Long> {
 
     @Procedure(procedureName = "un_freeze_card")
     void unFreezeCard(@Param("_card_id") Long cardId);
+
+    @Procedure(procedureName = "new_card")
+    void newCard(@Param("_account_id") Long accountId, @Param("_card_type") String cardType);
+
+    @Procedure(procedureName = "delete_card")
+    void deleteCard(@Param("_card_id") Long cardId);
 }

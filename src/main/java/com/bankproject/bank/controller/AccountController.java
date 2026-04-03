@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Controller
@@ -75,4 +77,32 @@ public class AccountController {
 
         return "redirect:/details/" + accountId;
     }
+
+    @PostMapping("/newCard")
+    public String newCard(@RequestParam Long accountId, @RequestParam String cardType){
+        cardsRepository.newCard(accountId, cardType);
+        return "redirect:/details/" + accountId;
+    }
+
+    @PostMapping("/deleteCard/{cardId}")
+    public String deleteCard(@PathVariable Long cardId, @RequestParam Long accountId){
+        cardsRepository.deleteCard(cardId);
+        return "redirect:/details/" + accountId;
+    }
+
+    @PostMapping("/transaction")
+    public String newTransaction(@RequestParam Long accountId, @RequestParam String targetNumber ,@RequestParam BigDecimal amount, RedirectAttributes redirectAttributes){
+        Accounts account = accountsRepository.findByAccountId(accountId);
+        try {
+            accountsRepository.transaction(account.getAccountNumber().trim(), targetNumber.trim(), amount);
+        }
+        catch (Exception e){
+            String m = e.getMessage();
+            m = m.split("ERROR:")[1].split("!")[0];
+            redirectAttributes.addFlashAttribute("error", m);
+        }
+
+        return "redirect:/details/" + accountId;
+    }
+
 }

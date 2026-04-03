@@ -148,6 +148,7 @@ p {
 /* CONTENT */
 .content {
     padding: 30px;
+    background-color: #eaeaea
 }
 
 /* ACCOUNTS GRID */
@@ -229,4 +230,60 @@ p {
 
 .freeze-button:hover{
     background: #556eaa;
+}
+
+.actions-container{
+    display: flex;
+    padding:20px;
+    margin:20px;
+}
+
+.action-card{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    box-shadow: 0 5px 25px rgba(0,0,0,0.2);
+    border-radius: 10px;
+    border: 1px solid #3447b1;
+    width: 250px;
+    height:250px;
+    padding:25px;
+    margin:10px;
+}
+
+.action-card button{
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    background: #3447b1;
+    color: #ffffff;
+    border: solid 1px #3447b1;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.action-card select{
+    width: 100%;
+    height:30px;
+}
+
+.delete-button{
+    margin-top: 10px;
+    padding: 10px;
+    width: 100%;
+    background: #850a0c;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.delete-button:hover{
+    background: #680000;
+}
+
+.transaction-eror{
+    width:100%;
+    color:darkred;
+    font-size:10px;
 }

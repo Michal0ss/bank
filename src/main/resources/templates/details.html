@@ -16,13 +16,10 @@
             </div>
         </div>
 
-        <div class="content" style="background-color: #eaeaea">
-            <form>
-
-            </form>
+        <div class="content">
             <h1>Account Details</h1>
             <p><strong>Balance:</strong>
-                <span th:text="${account.balance}"></span>
+                <span th:text="${account.balance}"></span> PLN
             </p>
 
             <p><strong>Created at:</strong>
@@ -60,6 +57,12 @@
                             <span th:text="${t.amount}"></span> PLN
                         </td>
                     </tr>
+
+                    <tr th:if="${transactions == null or transactions.isEmpty()}">
+                        <td colspan="3" style="text-align: center; font-style: italic;">
+                            No transactions were made with this account
+                        </td>
+                    </tr>
                     </tbody>
                 </table>
             </div>
@@ -83,12 +86,24 @@
                             <td th:text="${c.cardType}"></td>
                             <td th:text="${#dates.format(c.expiryDate, 'MM/yy')}"></td>
                             <td th:text="${c.cvv}"></td>
-                            <td th:text="${c.active ? 'Active' : 'Frozen'}"></td>
+                            <td th:text="${c.active ? 'active' : 'frozen'}"></td>
                             <td>
                                 <form th:action="@{/modifyCardStatus/{id}/{state}(id=${c.cardId}, state=${!c.active})}" method="post">
                                     <input type="hidden" name="accountId" th:value="${account.accountId}">
                                     <button class="freeze-button" type="submit">Freeze</button>
                                 </form>
+                            </td>
+                            <td>
+                                <form th:action="@{/deleteCard/{id}(id=${c.cardId})}" method="post">
+                                    <input type="hidden" name="accountId" th:value="${account.accountId}">
+                                    <button class="delete-button" type="submit">Delete</button>
+                                </form>
+                            </td>
+                        </tr>
+
+                        <tr th:if="${cards == null or cards.isEmpty()}">
+                            <td colspan="5" style="text-align: center; font-style: italic;">
+                                No card connected to this account
                             </td>
                         </tr>
                         </tbody>
@@ -96,6 +111,38 @@
                 </div>
             </div>
 
+            <div class="details-container">
+                <h1>Actions</h1>
+                <div class="actions-container">
+                    <form class="action-card" th:action="@{/newCard}" method="post">
+                        <h2>Add a new card</h2>
+                        <input type="hidden" name="accountId" th:value="${account.accountId}">
+                        <label for="cardType"><strong>Select card type:</strong>
+                            <select id="cardType" name="cardType">
+                                <option value="debit">Debit</option>
+                                <option value="credit">Credit</option>
+                            </select>
+                        </label>
+
+                        <button class="actions-button" type="submit"><strong>Done</strong></button>
+                    </form>
+
+                    <form class="action-card" th:action="@{/transaction}" method="post">
+                        <h2>Make a transaction</h2>
+                        <input type="hidden" name="accountId" th:value="${account.accountId}">
+                        <label for="targetNumber"><strong>Destination account number:</strong>
+                            <input required type="text" name="targetNumber" id="targetNumber">
+                        </label>
+
+                        <label for="amount"><strong>Specify the amount:</strong>
+                            <input required type="text" name="amount" id="amount">
+                        </label>
+
+                        <button class="actions-button" type="submit"><strong>Done</strong></button>
+                        <p th:if="${error != null}" th:text="${error}" class="transaction-eror"></p>
+                    </form>
+                </div>
+            </div>
 
         </div>
     </body>
