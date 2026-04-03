@@ -19,7 +19,7 @@ public class Cards {
     private Accounts account;
 
     @Column(unique = true)
-    private int cardNumber;
+    private String cardNumber;
 
     @DateTimeFormat(pattern = "MM/yy")
     private Date expiryDate;
@@ -28,7 +28,7 @@ public class Cards {
 
     private String cardType;
 
-    public Cards(String cardType, String cvv, Date expiryDate, int cardNumber, Accounts accountId, int cardId) {
+    public Cards(String cardType, String cvv, Date expiryDate, String cardNumber, Accounts accountId, int cardId) {
         this.cardType = cardType;
         this.cvv = cvv;
         this.expiryDate = expiryDate;
@@ -55,11 +55,11 @@ public class Cards {
         this.account = accountId;
     }
 
-    public int getCardNumber() {
+    public String getCardNumber() {
         return cardNumber;
     }
 
-    public void setCardNumber(int cardNumber) {
+    public void setCardNumber(String cardNumber) {
         this.cardNumber = cardNumber;
     }
 
