@@ -42,4 +42,28 @@ public class Accounts {
     public BigDecimal getBalance() {
         return balance;
     }
+
+    public int getAccountId() {
+        return accountId;
+    }
+
+    public List<Cards> getCards() {
+        return cards;
+    }
+
+    public Customers getCustomer() {
+        return customer;
+    }
+
+    public Branches getBranch() {
+        return branch;
+    }
+
+    public LocalDateTime getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getAccountType() {
+        return accountType;
+    }
 }

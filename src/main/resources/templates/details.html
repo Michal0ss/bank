@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Details</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+    <body>
+        <div class="navbar">
+            <h2>Bank App 💳</h2>
+            <span th:text="${email}"></span>
+        </div>
+
+        <div class="content">
+            <form>
+
+            </form>
+            <h1>Account Details</h1>
+            <p><strong>Balance:</strong>
+                <span th:text="${account.balance}"></span>
+            </p>
+
+            <p><strong>Created at:</strong>
+                <span th:text="${account.createdAt}">
+
+            </span>
+            </p>
+
+            <p><strong>Number:</strong>
+                <span th:text="${account.accountNumber}"></span>
+            </p>
+
+            <p><strong>Type:</strong>
+                <span th:text="${account.accountType}"></span>
+            </p>
+        </div>
+
+    </body>
+</html>

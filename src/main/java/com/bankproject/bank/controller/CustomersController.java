@@ -21,9 +21,15 @@ public class CustomersController {
     public String login(@RequestParam String email, @RequestParam String password, Model model) {
         Customers customer = customersRepository.findByEmail(email);
 
-        if (customer == null) {return "login";}
+        if (customer == null) {
+            model.addAttribute("error","User does not exist");
+            return "login";
+        }
 
-        if(!customer.getPassword().equals(password)) {return "login";}
+        if(!customer.getPassword().equals(password)) {
+            model.addAttribute("error","Invalid password");
+            return "login";
+        }
 
         model.addAttribute("customer", customer);
         return "dashboard";
