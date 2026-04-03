@@ -32,7 +32,7 @@ public class CustomersController {
             model.addAttribute("error","Invalid password");
             return "login";
         }
-
+        session.invalidate();
         session.setAttribute("userId",customer.getCustomerId());
         return "redirect:/dashboard";
     }
