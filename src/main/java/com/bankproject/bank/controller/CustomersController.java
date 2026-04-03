@@ -2,6 +2,7 @@ package com.bankproject.bank.controller;
 
 import com.bankproject.bank.entity.Customers;
 import com.bankproject.bank.repository.CustomersRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +21,7 @@ public class CustomersController {
     }
 
     @PostMapping("/login")
-    public String login(@RequestParam String email, @RequestParam String password, Model model, HttpSession session) {
+    public String login(@RequestParam String email, @RequestParam String password, Model model, HttpServletRequest request) {
         Customers customer = customersRepository.findByEmail(email);
 
         if (customer == null) {
@@ -32,8 +33,14 @@ public class CustomersController {
             model.addAttribute("error","Invalid password");
             return "login";
         }
-        session.invalidate();
-        session.setAttribute("userId",customer.getCustomerId());
+
+        HttpSession oldSession = request.getSession(false);
+        if (oldSession != null) {
+            oldSession.invalidate();
+        }
+
+        HttpSession newSession = request.getSession(true);
+        newSession.setAttribute("userId", customer.getCustomerId());
         return "redirect:/dashboard";
     }
 

@@ -186,6 +186,32 @@ p {
 }
 
 /* Details */
-.details {
+.details-container {
+    border-top: 1px solid black;
+}
 
+.details-table {
+    width: 100%; border-collapse: collapse; margin-top: 20px;
+}
+
+.details-table td, .details-table th {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    text-align: left;
+}
+
+.transactions-in {
+    color: green;
+    font-weight: bold;
+}
+
+.transactions-out {
+    color: red;
+    font-weight: bold;
+}
+
+.card-info {
+    color: #273c75;
+    font-family: monospace;
+    letter-spacing: 1px;
 }

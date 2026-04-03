@@ -44,7 +44,28 @@ insert into cards (account_id, card_number, expiry_date, card_type, cvv)
 values (5, '5773817871043697', '2030-02-12 0:00:00', 'debit','936');
 
 
+insert into transactions (amount, from_account_id, to_account_id, created_at, transaction_type)
+values (5000.0, 2, 1, '2024-03-01 12:00:00', 'internal_transfer');
 
+
+insert into transactions (amount, from_account_id, to_account_id, created_at, transaction_type)
+values (1200.0, 1, 3, '2024-03-05 14:30:00', 'external_transfer');
+
+
+insert into transactions (amount, from_account_id, to_account_id, created_at, transaction_type)
+values (200.0, 3, 4, '2024-03-10 09:15:00', 'saving_deposit');
+
+
+insert into transactions (amount, from_account_id, to_account_id, created_at, transaction_type)
+values (1500.0, 5, 1, '2024-03-12 18:45:00', 'external_transfer');
+
+
+insert into transactions (amount, from_account_id, to_account_id, created_at, transaction_type)
+values (50000.0, 2, 6, '2024-03-15 10:00:00', 'investment_transfer');
+
+
+insert into transactions (amount, from_account_id, to_account_id, created_at, transaction_type)
+values (100.0, 3, 5, '2024-03-16 21:00:00', 'atm_withdrawal');
 
 
 

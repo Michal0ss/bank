@@ -38,7 +38,58 @@
             <p><strong>Type:</strong>
                 <span th:text="${account.accountType}"></span>
             </p>
-        </div>
 
+            <div class="details-container">
+                <h1>Transactions</h1>
+                <table class="details-table">
+                    <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Type</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="t : ${transactions}">
+                        <td th:text="${#temporals.format(t.createdAt, 'yyyy-MM-dd HH:mm')}"></td>
+
+                        <td th:text="${t.transactionType}"></td>
+
+                        <td th:class="${t.fromAccount.accountId == account.accountId} ? 'transactions-out' : 'transactions-in'">
+                            <span th:text="${t.fromAccount.accountId == account.accountId} ? '-' : '+'"></span>
+                            <span th:text="${t.amount}"></span> PLN
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="details-container">
+                <h1>Cards</h1>
+                <div class="cards-container">
+                    <table class="details-table">
+                        <thead>
+                        <tr>
+                            <th>Numer</th>
+                            <th>Type</th>
+                            <th>Expiration date</th>
+                            <th>CVV</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="c : ${cards}">
+                            <td th:text="${c.cardNumber}"></td>
+                            <td th:text="${c.cardType}"></td>
+                            <td th:text="${#dates.format(c.expiryDate, 'MM/yy')}"></td>
+                            <td th:text="${c.cvv}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+            </div>
+
+
+        </div>
     </body>
 </html>
