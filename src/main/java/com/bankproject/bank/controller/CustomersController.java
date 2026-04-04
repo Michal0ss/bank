@@ -4,6 +4,7 @@ import com.bankproject.bank.entity.Customers;
 import com.bankproject.bank.repository.CustomersRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,8 +17,11 @@ import java.time.LocalDateTime;
 @Controller
 public class CustomersController {
     private final CustomersRepository customersRepository;
-    public CustomersController(CustomersRepository customersRepository) {
+    private final PasswordEncoder passwordEncoder;
+
+    public CustomersController(CustomersRepository customersRepository, PasswordEncoder passwordEncoder) {
         this.customersRepository = customersRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostMapping("/login")
@@ -29,7 +33,7 @@ public class CustomersController {
             return "login";
         }
 
-        if(!customer.getPassword().equals(password)) {
+        if (!passwordEncoder.matches(password, customer.getPassword())) {
             model.addAttribute("error","Invalid password");
             return "login";
         }
@@ -52,6 +56,7 @@ public class CustomersController {
             return "register";
         }
         customer.setCreatedAt(LocalDateTime.now());
+        customer.setPassword(passwordEncoder.encode(customer.getPassword()));
         customersRepository.save(customer);
         return "redirect:/login";
     }
