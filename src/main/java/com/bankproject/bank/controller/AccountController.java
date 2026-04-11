@@ -1,13 +1,9 @@
 package com.bankproject.bank.controller;
 
-import com.bankproject.bank.entity.Accounts;
-import com.bankproject.bank.entity.Cards;
-import com.bankproject.bank.entity.Customers;
-import com.bankproject.bank.entity.Transactions;
-import com.bankproject.bank.repository.AccountsRepository;
-import com.bankproject.bank.repository.CardsRepository;
-import com.bankproject.bank.repository.CustomersRepository;
-import com.bankproject.bank.repository.TransactionsRepository;
+import com.bankproject.bank.entity.*;
+import com.bankproject.bank.repository.*;
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
 public class AccountController {
@@ -103,6 +101,42 @@ public class AccountController {
         }
 
         return "redirect:/details/" + accountId;
+    }
+
+    private String generateUniqueAccountNumber() {
+        String number;
+        do {
+            number = "PL" + String.format("%026d", ThreadLocalRandom.current().nextLong(1_000_000_000_000_000L));
+        } while (accountsRepository.existsByAccountNumber(number));
+        return number;
+    }
+
+    @PersistenceContext
+    private EntityManager entityManager;
+
+
+    @PostMapping("/accounts/new")
+    public String createAccount(@RequestParam String accountType,@RequestParam Long branchId ,HttpSession session, RedirectAttributes redirectAttributes){
+        Long customerId = (Long) session.getAttribute("userId");
+        if  (customerId == null) {return "redirect:/login";}
+
+        Customers customer = customersRepository.findByCustomerId(customerId);
+        if (customer == null) {return "redirect:/login";}
+
+        Branches branch = entityManager.getReference(Branches.class, branchId);
+        String generatedNumber = generateUniqueAccountNumber();
+
+        Accounts account = new Accounts();
+        account.setCustomer(customer);
+        account.setBranch(branch);
+        account.setAccountType(accountType);
+        account.setBalance(BigDecimal.ZERO);
+        account.setCreatedAt(LocalDateTime.now());
+        account.setAccountNumber(generatedNumber);
+
+        accountsRepository.save(account);
+        redirectAttributes.addFlashAttribute("succes", "Nowe konto zostało utworzone: " + generatedNumber);
+        return "redirect:/dashboard";
     }
 
 }

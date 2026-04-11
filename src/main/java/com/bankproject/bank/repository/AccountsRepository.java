@@ -13,4 +13,6 @@ public interface AccountsRepository extends JpaRepository<Accounts, Long> {
 
     @Procedure(procedureName = "transaction")
     void transaction(@Param("_source_number")String sourceNumber, @Param("_target_number")String targetNumber, @Param("_amount")BigDecimal amount);
+
+    boolean existsByAccountNumber(String number);
 }

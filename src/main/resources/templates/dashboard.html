@@ -27,6 +27,23 @@
 
         <h1>Welcome!</h1>
 
+        <form action="/accounts/new" method="post">
+            <label for="accountType">Typ konta:</label>
+            <select id="accountType" name="accountType">
+                <option value="transactions">Transactions</option>
+                <option value="saving">Saving</option>
+            </select>
+
+            <select name="branchId">
+                <option value="1">KRK</option>
+                <option value="2">PZN</option>
+            </select>
+
+            <button type="submit">Utwórz nowe konto</button>
+        </form>
+
+
+
         <!-- ACCOUNTS -->
         <div class="accounts">
 

@@ -35,6 +35,19 @@ public class Accounts {
     private String accountType;
     private LocalDateTime createdAt;
 
+    public Accounts(Long accountId, List<Cards> cards, Customers customer, Branches branch, String accountNumber, BigDecimal balance, String accountType, LocalDateTime createdAt) {
+        this.accountId = accountId;
+        this.cards = cards;
+        this.customer = customer;
+        this.branch = branch;
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+        this.accountType = accountType;
+        this.createdAt = createdAt;
+    }
+
+    public Accounts() {}
+
     public String getAccountNumber() {
         return accountNumber;
     }
@@ -65,5 +78,37 @@ public class Accounts {
 
     public String getAccountType() {
         return accountType;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
+    }
+
+    public void setCards(List<Cards> cards) {
+        this.cards = cards;
+    }
+
+    public void setCustomer(Customers customer) {
+        this.customer = customer;
+    }
+
+    public void setBranch(Branches branch) {
+        this.branch = branch;
+    }
+
+    public void setAccountNumber(String accountNumber) {
+        this.accountNumber = accountNumber;
+    }
+
+    public void setBalance(BigDecimal balance) {
+        this.balance = balance;
+    }
+
+    public void setAccountType(String accountType) {
+        this.accountType = accountType;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 }
