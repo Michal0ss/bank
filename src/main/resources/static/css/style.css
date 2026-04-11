@@ -287,3 +287,69 @@ p {
     color:darkred;
     font-size:10px;
 }
+
+.newAcc {
+    background: linear-gradient(135deg, #ffffff 0%, #f7faff 100%);
+    border: 1px solid #d9e2ff;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+    padding: 24px;
+    margin: 20px 0 30px 0;
+    max-width: 420px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+.newAcc label {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    font-weight: 600;
+    color: #24324b;
+    font-size: 14px;
+}
+
+.newAcc select {
+    width: 100%;
+    padding: 12px 14px;
+    border: 1px solid #cfd8ea;
+    border-radius: 10px;
+    background: #fff;
+    font-size: 14px;
+    color: #1f2937;
+    outline: none;
+    transition: 0.25s ease;
+    box-sizing: border-box;
+}
+
+.newAcc select:focus {
+    border-color: #3447b1;
+    box-shadow: 0 0 0 3px rgba(52, 71, 177, 0.12);
+}
+
+.newAcc button {
+    margin-top: 6px;
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, #3447b1, #273c75);
+    color: white;
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.25s ease;
+}
+
+.newAcc button:hover {
+    transform: translateY(-1px);
+    background: linear-gradient(135deg, #4055c7, #314aa0);
+    box-shadow: 0 8px 18px rgba(52, 71, 177, 0.22);
+}
+
+.newAcc button:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
