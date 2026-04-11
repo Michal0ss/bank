@@ -126,17 +126,23 @@ public class AccountController {
         Branches branch = entityManager.getReference(Branches.class, branchId);
         String generatedNumber = generateUniqueAccountNumber();
 
+        BigDecimal balance = BigDecimal.valueOf(getRandomNumber(250, 1000000));
+
         Accounts account = new Accounts();
-        account.setCustomer(customer);
         account.setBranch(branch);
+        account.setCustomer(customer);
         account.setAccountType(accountType);
-        account.setBalance(BigDecimal.ZERO);
+        account.setBalance(balance);
         account.setCreatedAt(LocalDateTime.now());
         account.setAccountNumber(generatedNumber);
 
         accountsRepository.save(account);
-        redirectAttributes.addFlashAttribute("succes", "Nowe konto zostało utworzone: " + generatedNumber);
+        redirectAttributes.addFlashAttribute("success", "Nowe konto zostało utworzone: " + generatedNumber);
         return "redirect:/dashboard";
+    }
+
+    public int getRandomNumber(int min, int max) {
+        return (int) ((Math.random() * (max - min)) + min);
     }
 
 }
