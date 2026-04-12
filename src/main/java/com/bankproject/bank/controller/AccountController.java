@@ -39,13 +39,30 @@ public class AccountController {
 
     @GetMapping("/dashboard")
     public String dashboard(Model model, HttpSession session){
+        BigDecimal transactionAccBalance = BigDecimal.ZERO;
+        BigDecimal savingsAccBalance = BigDecimal.ZERO;
         Long customerId =  (Long) session.getAttribute("userId");
         Customers customer = customersRepository.findByCustomerId(customerId);
         if (customer == null) {return "redirect:/login";}
 
+        List<Accounts> accounts = customer.getAccounts();
+        for (Accounts account : accounts) {
+            String type = account.getAccountType();
+            BigDecimal balance = account.getBalance() == null ? BigDecimal.ZERO : account.getBalance();
+
+            if ("transactions".equalsIgnoreCase(type)) {
+                transactionAccBalance = transactionAccBalance.add(balance);
+            } else if ("saving".equalsIgnoreCase(type)) {
+                savingsAccBalance = savingsAccBalance.add(balance);
+            }
+        }
+
         String email = customer.getEmail();
         model.addAttribute("customer", customer);
         model.addAttribute("email", email);
+        model.addAttribute("transactionAccBalance", transactionAccBalance);
+        model.addAttribute("savingsAccBalance", savingsAccBalance);
+        model.addAttribute("totalBalance", transactionAccBalance.add(savingsAccBalance));
         return "dashboard";
     }
 
@@ -144,5 +161,6 @@ public class AccountController {
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
+
 
 }

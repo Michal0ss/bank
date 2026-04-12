@@ -43,6 +43,13 @@
                 <button type="submit">Utwórz nowe konto</button>
             </form>
 
+            <div class="account-card">
+                <h3>Podsumowanie</h3>
+                <p><strong>Transactions:</strong> <span th:text="${transactionAccBalance}"></span> PLN</p>
+                <p><strong>Saving:</strong> <span th:text="${savingsAccBalance}"></span> PLN</p>
+                <p><strong>Razem:</strong> <span th:text="${totalBalance}"></span> PLN</p>
+            </div>
+
             <!-- BLIK WIDGET -->
             <section class="blik-widget" aria-label="BLIK code generator">
                 <div class="blik-logo" aria-hidden="true">
