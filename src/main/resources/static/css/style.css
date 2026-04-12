@@ -288,6 +288,14 @@ p {
     font-size:10px;
 }
 
+.top-panels {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+}
+
 .newAcc {
     background: linear-gradient(135deg, #ffffff 0%, #f7faff 100%);
     border: 1px solid #d9e2ff;
@@ -352,4 +360,92 @@ p {
 .newAcc button:active {
     transform: translateY(0);
     box-shadow: none;
+}
+
+.blik-widget {
+    background: #ffffff;
+    border: 1px solid #d9e1f2;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+    padding: 20px;
+    width: 280px;
+    margin-bottom: 24px;
+    flex: 0 0 280px;
+}
+
+.blik-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #111;
+    color: #fff;
+    border-radius: 8px;
+    padding: 6px 10px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    margin-bottom: 12px;
+}
+
+.blik-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #ff2a2a;
+    display: inline-block;
+}
+
+.blik-label {
+    margin: 0 0 8px 0;
+    color: #2f3640;
+    font-size: 14px;
+}
+
+.blik-code {
+    font-size: 34px;
+    font-weight: 700;
+    letter-spacing: 4px;
+    color: #122d8f;
+    margin-bottom: 10px;
+    font-family: "Courier New", monospace;
+}
+
+.blik-timer-row {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 12px;
+    color: #333;
+    font-size: 14px;
+}
+
+.blik-copy-btn {
+    width: 100%;
+    border: none;
+    border-radius: 8px;
+    padding: 10px 12px;
+    cursor: pointer;
+    background: #273c75;
+    color: #fff;
+    font-weight: 600;
+}
+
+.blik-copy-btn:hover {
+    background: #3553a1;
+}
+
+.blik-copy-status {
+    min-height: 18px;
+    margin-top: 8px;
+    font-size: 13px;
+    color: #2d7a2d;
+}
+
+@media (max-width: 900px) {
+    .top-panels {
+        flex-direction: column;
+    }
+
+    .blik-widget {
+        width: 100%;
+        max-width: 420px;
+    }
 }

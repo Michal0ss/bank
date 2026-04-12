@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Dashboard</title>
-
+    <script th:src="@{/js/blik.js}"></script>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 <body>
@@ -27,21 +27,41 @@
 
         <h1>Welcome!</h1>
 
-        <form action="/accounts/new" method="post" class="newAcc">
-            <label for="accountType">Typ konta:</label>
-            <select id="accountType" name="accountType">
-                <option value="transactions">Transactions</option>
-                <option value="saving">Saving</option>
-            </select>
+        <div class="top-panels">
+            <form action="/accounts/new" method="post" class="newAcc">
+                <label for="accountType">Typ konta:</label>
+                <select id="accountType" name="accountType">
+                    <option value="transactions">Transactions</option>
+                    <option value="saving">Saving</option>
+                </select>
 
-            <select name="branchId">
-                <option value="1">KRK</option>
-                <option value="2">PZN</option>
-            </select>
+                <select name="branchId">
+                    <option value="1">KRK</option>
+                    <option value="2">PZN</option>
+                </select>
 
-            <button type="submit">Utwórz nowe konto</button>
-        </form>
+                <button type="submit">Utwórz nowe konto</button>
+            </form>
 
+            <!-- BLIK WIDGET -->
+            <section class="blik-widget" aria-label="BLIK code generator">
+                <div class="blik-logo" aria-hidden="true">
+                    <span class="blik-dot"></span>
+                    <span class="blik-text">BLIK</span>
+                </div>
+
+                <p class="blik-label">Kod BLIK</p>
+                <div id="blikCode" class="blik-code" data-value="">------</div>
+
+                <div class="blik-timer-row">
+                    <span>Pozostalo:</span>
+                    <strong id="blikTimer">00:30</strong>
+                </div>
+
+                <button type="button" id="copyBlikBtn" class="blik-copy-btn">Kopiuj kod</button>
+                <p id="blikCopyStatus" class="blik-copy-status" aria-live="polite"></p>
+            </section>
+        </div>
 
 
         <!-- ACCOUNTS -->
