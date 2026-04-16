@@ -14,5 +14,9 @@ public interface AccountsRepository extends JpaRepository<Accounts, Long> {
     @Procedure(procedureName = "transaction")
     void transaction(@Param("_source_number")String sourceNumber, @Param("_target_number")String targetNumber, @Param("_amount")BigDecimal amount);
 
+    @Procedure(procedureName = "delete_account")
+    void deleteAccount(@Param("_account_id") Long accountId, @Param("_customer_id") Long customerId);
+
+
     boolean existsByAccountNumber(String number);
 }

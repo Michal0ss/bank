@@ -10,6 +10,27 @@ as '
     insert into accounts(balance, branch_id, created_at, customer_id, account_number, account_type) values (_balance , _branch_id, created_at, _customer_id, _account_number, _account_type);
 ';;
 
+create or replace procedure delete_account(_account_id bigint, _customer_id bigint)
+    language plpgsql
+as $$
+begin
+    if exists (
+        select 1
+        from accounts
+        where account_id = _account_id
+          and customer_id = _customer_id
+    ) then
+        delete from accounts
+        where account_id = _account_id
+          and customer_id = _customer_id;
+
+        raise notice 'Account with id % deleted successfully!', _account_id;
+    else
+        raise exception 'Account not found for the given customer!';
+    end if;
+end;
+$$;;
+
 create or replace procedure freeze_card (_card_id bigint)
     language sql
 as '

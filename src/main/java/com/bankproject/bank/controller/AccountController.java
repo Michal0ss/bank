@@ -7,10 +7,7 @@ import jakarta.persistence.PersistenceContext;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
@@ -120,14 +117,6 @@ public class AccountController {
         return "redirect:/details/" + accountId;
     }
 
-    private String generateUniqueAccountNumber() {
-        String number;
-        do {
-            number = "PL" + String.format("%026d", ThreadLocalRandom.current().nextLong(1_000_000_000_000_000L));
-        } while (accountsRepository.existsByAccountNumber(number));
-        return number;
-    }
-
     @PersistenceContext
     private EntityManager entityManager;
 
@@ -158,9 +147,29 @@ public class AccountController {
         return "redirect:/dashboard";
     }
 
+    @PostMapping("/accounts/delete/{accountId}")
+    public String deleteAccount(@PathVariable Long accountId, HttpSession session, RedirectAttributes redirectAttributes){
+        Long  customerId = (Long) session.getAttribute("userId");
+        if (customerId == null) {return "redirect:/login";}
+        Accounts account = accountsRepository.findByAccountId(accountId);
+        if (account == null || !account.getCustomer().getCustomerId().equals(customerId)) {return "redirect:/dashboard";}
+        try{
+            accountsRepository.deleteAccount(accountId, customerId);
+            redirectAttributes.addFlashAttribute("success", "Account deleted successfully");
+        }catch (Exception e){
+            redirectAttributes.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:/dashboard";
+    }
+
+    private String generateUniqueAccountNumber() {
+        String number;
+        do {
+            number = "PL" + String.format("%026d", ThreadLocalRandom.current().nextLong(1_000_000_000_000_000L));
+        } while (accountsRepository.existsByAccountNumber(number));
+        return number;
+    }
     public int getRandomNumber(int min, int max) {
         return (int) ((Math.random() * (max - min)) + min);
     }
-
-
 }

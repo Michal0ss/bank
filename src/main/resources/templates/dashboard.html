@@ -91,6 +91,9 @@
 
                     <button type="submit">Details</button>
                 </form>
+                <form th:action="@{/accounts/delete/{id}(id=${account.accountId})}" method="post">
+                    <button type="submit" onclick="return confirm('Na pewno usunac konto?')">Delete</button>
+                </form>
             </div>
 
         </div>
