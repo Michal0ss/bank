@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -77,6 +79,38 @@ public class AccountController {
         model.addAttribute("email",customer.getEmail());
         model.addAttribute("transactions",transactions);
         model.addAttribute("cards",cards);
+        return "details";
+    }
+
+    @GetMapping("/accounts/{accountId}/report")
+    public String generateReport(@PathVariable Long accountId,
+                                 @RequestParam LocalDate dateFrom,
+                                 @RequestParam LocalDate dateTo,
+                                 @RequestParam(defaultValue = "ALL") String direction,
+                                 Model model,
+                                 HttpSession session) {
+        Long userId =  (Long) session.getAttribute("userId");
+        if(userId == null) {return "redirect:/login";}
+
+        Accounts account = accountsRepository.findByAccountId(accountId);
+        if(account == null) {return "redirect:/dashboard";}
+
+        if(!account.getCustomer().getCustomerId().equals(userId)) {return "redirect:/dashboard";}
+
+        LocalDateTime fromDateTime = dateFrom.atStartOfDay();
+        LocalDateTime toDateTime = dateTo.plusDays(1).atStartOfDay();
+        String normalizedDirection = direction.toUpperCase();
+
+        List<Object[]> reportRows = transactionsRepository.generateReport(accountId, fromDateTime, toDateTime, normalizedDirection);
+//        List<Cards> cards = cardsRepository.findByAccount(account);
+
+
+        model.addAttribute("reportRows",reportRows);
+        model.addAttribute("account",account);
+        model.addAttribute("dateFrom",dateFrom);
+        model.addAttribute("dateTo",dateTo);
+        model.addAttribute("direction",direction);
+
         return "details";
     }
 

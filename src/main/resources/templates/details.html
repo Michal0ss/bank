@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Details</title>
+    <script th:src="@{/js/reportModal.js}"></script>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
     <body>
@@ -37,7 +38,11 @@
             </p>
 
             <div class="details-container">
-                <h1>Transactions</h1>
+                <div class="section-header">
+                    <h1>Transactions</h1>
+                    <button type="button" class="actions-button" onclick="openReportModal()">Generate report</button>
+                </div>
+
                 <table class="details-table">
                     <thead>
                     <tr>
@@ -143,6 +148,39 @@
                     </form>
                 </div>
             </div>
+
+
+            <div id="reportModal" class="modal-overlay" style="display: none;">
+                <div class="modal-box">
+                    <div class="modal-header">
+                        <h2>Generate transaction report</h2>
+                        <button type="button" class="close-button" onclick="closeReportModal()">X</button>
+                    </div>
+
+                    <form th:action="@{/accounts/{id}/report(id=${account.accountId})}" method="get" class="report-form">
+                        <input type="hidden" name="accountId" th:value="${account.accountId}">
+
+                        <label for="dateFrom"><strong>From:</strong></label>
+                        <input type="date" id="dateFrom" name="dateFrom" required>
+
+                        <label for="dateTo"><strong>To:</strong></label>
+                        <input type="date" id="dateTo" name="dateTo" required>
+
+                        <label for="direction"><strong>Direction:</strong></label>
+                        <select id="direction" name="direction">
+                            <option value="ALL">All</option>
+                            <option value="IN">Incoming</option>
+                            <option value="OUT">Outgoing</option>
+                        </select>
+
+                        <div class="modal-actions">
+                            <button type="submit" class="actions-button">Generate</button>
+                            <button type="button" class="delete-button" onclick="closeReportModal()">Cancel</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
 
         </div>
     </body>
